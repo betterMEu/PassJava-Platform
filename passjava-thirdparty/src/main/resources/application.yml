@@ -1,0 +1,16 @@
+spring:
+  cloud:
+    alicloud:
+      access-key: LTAI5tGBKjrEh3MBf9cncmp9
+      secret-key: jAVFfevg82WctgrDXLyKUIZqZZD43J
+      oss:
+        endpoint: http://oss-cn-shenzhen.aliyuncs.com
+
+  zipkin:
+    base-url: http://120.78.172.214:9411/
+    discovery-client-enabled: false
+    sender:
+      type: web
+  sleuth:
+    sampler:
+      probability: 1

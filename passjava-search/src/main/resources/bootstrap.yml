@@ -1,0 +1,14 @@
+server:
+  port: 14000
+
+spring:
+  application:
+    name: passjava-search
+
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 127.0.0.1:1111
+      config:
+        server-addr: 127.0.0.1:1111
+        file-extension: yaml

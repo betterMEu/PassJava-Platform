@@ -1,0 +1,14 @@
+server:
+  port: 10000
+
+spring:
+  application:
+    name: passjava-member
+
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 127.0.0.1:1111
+      config:
+        server-addr: 127.0.0.1:1111
+        file-extension: yaml

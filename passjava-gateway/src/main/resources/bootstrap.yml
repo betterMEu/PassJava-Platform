@@ -1,0 +1,14 @@
+server:
+  port: 8868
+
+spring:
+  application:
+    name: passjava-gateway
+
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 127.0.0.1:1111
+      config:
+        server-addr: 127.0.0.1:1111
+        file-extension: yaml

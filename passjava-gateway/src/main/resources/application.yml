@@ -1,0 +1,47 @@
+spring:
+  zipkin:
+    base-url: http://120.78.172.214:9411/
+    discovery-client-enabled: false
+    sender:
+      type: web
+  sleuth:
+    sampler:
+      probability: 1
+
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+      routes:
+        - id: route_thirdparty
+          uri: lb://passjava-thirdparty # 代表使用ribbon负载，注意alibaba2021默认移除了nacos中ribbon的jar包，需要导入loadB
+          predicates:
+            - Path=/api/thirdparty/**
+          filters:
+            - RewritePath=/api/(?<segment>.*),/$\{segment} # 将跳转路径中包含的api替换成空
+
+        - id: route_question # 题目微服务路由规则
+          uri: lb://passjava-question # 负载均衡，将请求转发到注册中心注册的assjava-question服务
+          predicates: # 断言
+            - Path=/api/question/** # 如果前端请求路径包含 api/question，则应用这条路由规则
+          filters: #过滤器
+            - RewritePath=/api/(?<segment>.*),/$\{segment} # 将跳转路径中包含的 api 替换成空
+
+        - id: route_search # 题目微服务路由规则
+          uri: lb://passjava-search # 负载均衡，将请求转发到注册中心注册的 passjava-search 服务
+          predicates: # 断言
+            - Path=/api/search/** # 如果前端请求路径包含 api/question，则应用这条路由规则
+          filters: #过滤器
+            - RewritePath=/api/(?<segment>.*),/$\{segment} # 将跳转路径中包含的api替换成空
+
+        - id: route_portal # renren-fast微服务路由规则
+          uri: lb://renren-fast # 负载均衡，renren-fast服务
+          predicates: # 断言
+            - Path=/api/** # 如果前端请求路径包含 api，则应用这条路由规则
+          filters: #过滤器
+            - RewritePath=/api/(?<segment>.*),/renren-fast/$\{segment} # 将跳转路径中包含的api替换成renren-fast，但是替换的url不会在前端显示，还是网关的访问路径。这里不是跳转到新的路径，而是转发请求。
+
+logging:
+  level:
+    com.better.passjavagateway: debug

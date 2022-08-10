@@ -1,0 +1,31 @@
+#server:
+#  port: 10000
+
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/passjava_ums?useSSL=false&useUnicode=true&characterEncoding=utf-8&serverTimezone=UTC
+    username: root
+    password: 123456
+
+  cloud:
+    alicloud:
+      access-key: LTAI5tGBKjrEh3MBf9cncmp9
+      secret-key: jAVFfevg82WctgrDXLyKUIZqZZD43J
+      oss:
+        endpoint: http://oss-cn-shenzhen.aliyuncs.com
+
+  zipkin:
+    base-url: http://120.78.172.214:9411/
+    discovery-client-enabled: false
+    sender:
+      type: web
+  sleuth:
+    sampler:
+      probability: 1
+
+mybatis-plus:
+  mapper-locations: classpath:/mapper/**/*.xml
+  global-config:
+    db-config:
+      id-type: auto
