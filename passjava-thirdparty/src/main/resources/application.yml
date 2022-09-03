@@ -7,7 +7,7 @@ spring:
         endpoint: http://oss-cn-shenzhen.aliyuncs.com
 
   zipkin:
-    base-url: http://120.78.172.214:9411/
+    base-url: http://...
     discovery-client-enabled: false
     sender:
       type: web
